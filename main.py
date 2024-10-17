@@ -46,6 +46,8 @@ def process(latest_version: Version):
         "crimera/piko", "^piko.*jar$", "bins", "patches.jar"
     )
 
+    print(pikoRelease["body"])
+
     print("Downloading integrations")
     integrationsRelease = download_release_asset(
         "crimera/revanced-integrations",
