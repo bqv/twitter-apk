@@ -3,19 +3,25 @@ import re
 from utils import download
 
 
-def download_release_asset(repo: str, regex: str, out_dir: str, filename=None, include_prereleases: bool = False):
+def download_release_asset(repo: str, regex: str, out_dir: str, filename=None, include_prereleases: bool = False, id=None):
     url = f"https://api.github.com/repos/{repo}/releases"
+    if id is not None:
+        url += f"/{id}"
 
     response = requests.get(url)
     if response.status_code != 200:
         raise Exception("Failed to fetch github")
 
-    releases = [r for r in response.json() if include_prereleases or not r["prerelease"]]
+    latest_release = None 
+    if id is None:
+        releases = [r for r in response.json() if include_prereleases or not r["prerelease"]]
 
-    if not releases:
-        raise Exception(f"No releases found for {repo}")
+        if not releases:
+            raise Exception(f"No releases found for {repo}")
 
-    latest_release = releases[0]
+        latest_release = releases[0]
+    else:
+        latest_release = response.json()
 
     assets = latest_release["assets"]
 
