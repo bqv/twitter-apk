@@ -67,7 +67,7 @@ Changelogs:
     build_apks(latest_version)
 
     publish_release(
-        f"{latest_version.version}-{pikoRelease["tag_name"]}",
+        f"{latest_version.version}-{pikoRelease["tag_name"]}-{integrationsRelease["tag_name"]}",
         [
             f"x-piko-v{latest_version.version}.apk",
             f"x-piko-material-you-v{latest_version.version}.apk",
@@ -75,7 +75,7 @@ Changelogs:
             f"twitter-piko-material-you-v{latest_version.version}.apk",
         ],
         message,
-        f"{latest_version.version}-{pikoRelease["tag_name"]}"
+        f"{latest_version.version}-{pikoRelease["tag_name"]}-{integrationsRelease["tag_name"]}"
     )
 
     report_to_telegram()
